@@ -51,10 +51,7 @@ function NDSparse(df::DataFrame; named::Bool=false, idxcols=nothing, datacol=not
     if named
         idx = Columns(cols[idxcols]..., names=df.colindex.names[idxcols])
         if length(datacols) > 1
-            dnames = df.colindex.names[datacols]
-            dc = cols[datacols]
-            dt = eval(:(@NT($(dnames...)))){map(eltype, dc)...}
-            data = Columns{dt}(dc...)
+            data = Columns(cols[datacols]..., names=df.colindex.names[datacols])
         end
     else
         idx = Columns(cols[idxcols]...)
